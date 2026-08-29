@@ -81,16 +81,17 @@ export const issueCategories: IssueCategory[] = [
   },
   {
     id: "digital",
-    name: "Digital Issues",
-    description: "Issues related to digital systems, technology access, and online harassment.",
+    name: "Digital Harassment",
+    description: "Issues related to digital harassment, online intimidation, and technological disruptions.",
     icon: "computer",
     iconColor: "primary-light",
     subIssues: [
+      { id: "cell_disruption", name: "Cell Disruption" },
+      { id: "social_media_hacks", name: "Social Media Hacks" },
       { id: "app_portal_problems", name: "App/Portal Problems" },
       { id: "internet_wifi", name: "Internet/WiFi Issues" },
-      { id: "digital_communication", name: "Digital Communication Problems" },
       { id: "online_harassment", name: "Online Harassment" },
-      { id: "other_digital", name: "Other Digital Issues" }
+      { id: "other_digital", name: "More" }
     ]
   },
   {

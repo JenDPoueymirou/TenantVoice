@@ -30,11 +30,12 @@ const IssueCard = ({ category }: IssueCardProps) => {
         </div>
       </div>
       <div className="px-6 py-3 bg-neutral-50 border-t border-neutral-200">
-        <Link href={`/report?category=${category.id}`}>
-          <a className="text-primary font-medium text-sm flex items-center">
-            View issues in this category
-            <span className="material-icons text-sm ml-1">arrow_forward</span>
-          </a>
+        <Link 
+          href={`/report?category=${category.id}`}
+          className="text-primary font-medium text-sm flex items-center"
+        >
+          View issues in this category
+          <span className="material-icons text-sm ml-1">arrow_forward</span>
         </Link>
       </div>
     </div>

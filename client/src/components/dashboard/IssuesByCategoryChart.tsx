@@ -108,7 +108,6 @@ const IssuesByCategoryChart = ({ data }: IssuesByCategoryChartProps) => {
               dataKey="count" 
               radius={[4, 4, 0, 0]}
               barSize={28}
-              fill="#1565C0"
               // Use different colors for each category
               fill={(entry) => categoryColors[entry.categoryId] || "#1565C0"}
             />

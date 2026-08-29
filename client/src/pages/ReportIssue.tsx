@@ -164,7 +164,7 @@ const ReportIssue = () => {
     setSelectedBuilding(buildingId);
     
     // Find the selected building and populate the form
-    const selectedBuildingData = buildings?.find((b: any) => b.id === buildingId);
+    const selectedBuildingData = Array.isArray(buildings) ? buildings.find((b: any) => b.id === buildingId) : undefined;
     if (selectedBuildingData) {
       buildingForm.reset({
         address: selectedBuildingData.address,
@@ -259,7 +259,7 @@ const ReportIssue = () => {
                       disabled={buildingsLoading}
                     >
                       <option value="">Search by address or landlord name</option>
-                      {buildings?.map((building: any) => (
+                      {Array.isArray(buildings) && buildings.map((building: any) => (
                         <option key={building.id} value={building.id}>
                           {building.address}, {building.city} - {building.landlord}
                         </option>

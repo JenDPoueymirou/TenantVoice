@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import StatCard from "@/components/dashboard/StatCard";
 import IssuesByCategoryChart from "@/components/dashboard/IssuesByCategoryChart";
 import TopBuildingsTable from "@/components/dashboard/TopBuildingsTable";
+import IssueClusterVisualization from "@/components/visualizations/IssueClusterVisualization";
 
 type DashboardStats = {
   totalIssues: number;
@@ -10,17 +11,40 @@ type DashboardStats = {
   resolvedIssues: number;
 };
 
+type CategoryData = {
+  [key: string]: number;
+};
+
+type Building = {
+  id: number;
+  address: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  landlord: string;
+};
+
+type TopBuildingData = {
+  building: Building;
+  issueCount: number;
+  status: string;
+  trend: number;
+};
+
 const Dashboard = () => {
   const { data: stats, isLoading: statsLoading, error: statsError } = useQuery<DashboardStats>({
     queryKey: ['/api/stats'],
+    retry: false
   });
 
-  const { data: categoryData, isLoading: categoriesLoading, error: categoriesError } = useQuery({
+  const { data: categoryData, isLoading: categoriesLoading, error: categoriesError } = useQuery<CategoryData>({
     queryKey: ['/api/stats/categories'],
+    retry: false
   });
 
-  const { data: topBuildings, isLoading: buildingsLoading, error: buildingsError } = useQuery({
+  const { data: topBuildings, isLoading: buildingsLoading, error: buildingsError } = useQuery<TopBuildingData[]>({
     queryKey: ['/api/stats/top-buildings'],
+    retry: false
   });
 
   const isLoading = statsLoading || categoriesLoading || buildingsLoading;
@@ -92,9 +116,14 @@ const Dashboard = () => {
         </div>
         
         {/* Data Visualization */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           <IssuesByCategoryChart data={categoryData} />
           <TopBuildingsTable data={topBuildings} />
+        </div>
+        
+        {/* Issue Cluster Visualization - Thematic Patterns */}
+        <div className="mb-8">
+          <IssueClusterVisualization buildingAddress="1273 Pacific St, Brooklyn, NY 11216" />
         </div>
       </div>
     </section>

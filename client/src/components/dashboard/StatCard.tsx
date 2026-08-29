@@ -24,7 +24,7 @@ const StatCard = ({ title, value, icon, color, change }: StatCardProps) => {
         <p className="text-neutral-500 text-sm">
           <span className={`${changeColor} font-medium`}>
             {changeSymbol} {Math.abs(change)}%
-          </span> from last month
+          </span> from last year
         </p>
       </div>
     </div>

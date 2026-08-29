@@ -69,6 +69,48 @@ const DataExport = ({
         </div>
       </div>
       
+      {/* Quick Export Section */}
+      <div className="mb-6 bg-white rounded-lg border border-neutral-200 p-4">
+        <h4 className="font-medium mb-3">Quick Exports</h4>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-neutral-50 p-3 rounded-lg hover:bg-neutral-100 transition-colors cursor-pointer">
+            <div className="flex items-center mb-2">
+              <span className="material-icons text-primary mr-2">bar_chart</span>
+              <h5 className="font-medium">Category Chart</h5>
+            </div>
+            <p className="text-sm text-neutral-600 mb-2">Export issues by category visualization</p>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" className="text-xs px-2 py-1 h-auto">CSV</Button>
+              <Button variant="outline" size="sm" className="text-xs px-2 py-1 h-auto">PNG</Button>
+            </div>
+          </div>
+          
+          <div className="bg-neutral-50 p-3 rounded-lg hover:bg-neutral-100 transition-colors cursor-pointer">
+            <div className="flex items-center mb-2">
+              <span className="material-icons text-primary mr-2">apartment</span>
+              <h5 className="font-medium">Building Report</h5>
+            </div>
+            <p className="text-sm text-neutral-600 mb-2">Export building-specific violation data</p>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" className="text-xs px-2 py-1 h-auto">CSV</Button>
+              <Button variant="outline" size="sm" className="text-xs px-2 py-1 h-auto">PDF</Button>
+            </div>
+          </div>
+          
+          <div className="bg-neutral-50 p-3 rounded-lg hover:bg-neutral-100 transition-colors cursor-pointer">
+            <div className="flex items-center mb-2">
+              <span className="material-icons text-primary mr-2">comment</span>
+              <h5 className="font-medium">Tenant Comments</h5>
+            </div>
+            <p className="text-sm text-neutral-600 mb-2">Export anonymized tenant testimonials</p>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" className="text-xs px-2 py-1 h-auto">TXT</Button>
+              <Button variant="outline" size="sm" className="text-xs px-2 py-1 h-auto">PDF</Button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       <div className="bg-white rounded-lg border border-neutral-200 p-4 mb-6">
         <h4 className="font-medium mb-3">Export Filters</h4>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

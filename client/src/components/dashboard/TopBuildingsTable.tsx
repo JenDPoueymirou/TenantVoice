@@ -74,7 +74,7 @@ const TopBuildingsTable = ({ data }: TopBuildingsTableProps) => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6 transition-all duration-300 hover:translate-y-[-4px] hover:shadow-lg h-[300px]">
+    <div className="bg-white rounded-xl shadow-md p-6 transition-all duration-300 hover:shadow-lg" style={{ minHeight: "540px" }}>
       <div className="flex justify-between items-center mb-6">
         <h3 className="font-semibold text-lg">Top Buildings by Issues</h3>
         <div>
@@ -115,10 +115,8 @@ const TopBuildingsTable = ({ data }: TopBuildingsTableProps) => {
                 return (
                   <tr key={index}>
                     <td className="px-3 py-4 whitespace-nowrap">
-                      <Link href={`/buildings/${item.building.id}`}>
-                        <a className="text-sm font-medium text-primary hover:text-primary-dark">
-                          {item.building.address}
-                        </a>
+                      <Link href={`/buildings/${item.building.id}`} className="text-sm font-medium text-primary hover:text-primary-dark">
+                        {item.building.address}
                       </Link>
                     </td>
                     <td className="px-3 py-4 whitespace-nowrap">
@@ -136,11 +134,9 @@ const TopBuildingsTable = ({ data }: TopBuildingsTableProps) => {
             </tbody>
           </table>
           <div className="mt-4 text-right">
-            <Link href="/buildings">
-              <a className="text-primary text-sm font-medium flex items-center justify-end">
+            <Link href="/buildings" className="text-primary text-sm font-medium flex items-center justify-end">
                 View all buildings
                 <span className="material-icons text-sm ml-1">arrow_forward</span>
-              </a>
             </Link>
           </div>
         </div>

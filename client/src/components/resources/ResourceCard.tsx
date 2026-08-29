@@ -29,15 +29,17 @@ const ResourceCard = ({ title, icon, description, link }: ResourceCardProps) => 
         <h3 className="font-semibold">{title}</h3>
       </div>
       <p className="text-neutral-600 text-sm mb-4">{description}</p>
-      <Link href={link}>
-        <a className="text-primary font-medium text-sm flex items-center">
-          {title === 'Legal Resources' 
-            ? 'Access legal resources' 
-            : title === 'Government Agencies' 
-              ? 'View agency list' 
+      <Link href={link} className="text-primary font-medium text-sm flex items-center">
+        {title === 'Legal Resources' 
+          ? 'Access legal resources' 
+          : title === 'Government Agencies' 
+            ? 'View agency list' 
+            : title === 'Community Resources'
+              ? 'Access guides'
+              : title === 'Data Tools'
+              ? 'Use data tools'
               : 'Find organizations'}
-          <span className="material-icons text-sm ml-1">arrow_forward</span>
-        </a>
+        <span className="material-icons text-sm ml-1">arrow_forward</span>
       </Link>
     </div>
   );

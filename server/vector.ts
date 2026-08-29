@@ -1,27 +1,52 @@
-// Simple vector implementation for in-memory vector database
-// In a production environment, this would use a proper embedding model
+// Vector database implementation using OpenAI embeddings
+import { generateEmbedding, generateBatchEmbeddings } from './openai';
 
-// Function to generate embeddings for text
+// Constants
+export const VECTOR_DIMENSION = 1536; // Default dimension for text-embedding-3-small
+
+/**
+ * Compute an embedding vector for the provided text using OpenAI's API
+ * This function wraps the OpenAI embeddings API to generate semantic vectors
+ * 
+ * @param text - The text to generate embeddings for (can include issue descriptions, addresses, etc.)
+ * @returns A vector representation of the text (1536 dimensions by default)
+ */
 export async function computeEmbedding(text: string): Promise<number[]> {
-  // This is a simplified version that creates "mock" embeddings
-  // In a real implementation, you would use an embedding model like OpenAI's
-  const normalizedText = text.toLowerCase().trim();
-  
-  // Create a vector of size 128 (typical embedding might be 1536 dimensions)
-  const vector: number[] = new Array(128).fill(0);
-  
-  // Fill vector with values derived from the text 
-  // This is a simple hash-based approach for demonstration
-  // In production, you'd use a proper embedding model
-  for (let i = 0; i < normalizedText.length; i++) {
-    const charCode = normalizedText.charCodeAt(i);
-    const position = i % vector.length;
-    vector[position] += charCode / 255; // Normalize to 0-1 range
+  if (!text || text.trim() === '') {
+    return new Array(VECTOR_DIMENSION).fill(0); // Return zero vector for empty text
   }
   
-  // Normalize the vector to unit length
-  const magnitude = Math.sqrt(vector.reduce((sum, val) => sum + val * val, 0));
-  const normalizedVector = vector.map(val => val / (magnitude || 1));
+  try {
+    // Use our OpenAI service to generate the embedding
+    return await generateEmbedding(text);
+  } catch (error: unknown) {
+    // Safe error handling
+    // @ts-ignore - TypeScript doesn't know the structure of our error
+    const errorMessage = error?.message || "Unknown error";
+    console.error("Error in computeEmbedding:", errorMessage);
+    throw new Error(`Failed to compute embedding: ${errorMessage}`);
+  }
+}
+
+/**
+ * Compute embeddings for multiple texts in a single API call (more efficient)
+ * 
+ * @param texts - Array of texts to generate embeddings for
+ * @returns Array of embedding vectors
+ */
+export async function computeBatchEmbeddings(texts: string[]): Promise<number[][]> {
+  if (!texts || texts.length === 0) {
+    return [];
+  }
   
-  return normalizedVector;
+  try {
+    // Use our batch API to generate multiple embeddings at once
+    return await generateBatchEmbeddings(texts);
+  } catch (error: unknown) {
+    // Safe error handling
+    // @ts-ignore - TypeScript doesn't know the structure of our error
+    const errorMessage = error?.message || "Unknown error";
+    console.error("Error in computeBatchEmbeddings:", errorMessage);
+    throw new Error(`Failed to compute batch embeddings: ${errorMessage}`);
+  }
 }

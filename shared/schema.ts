@@ -26,11 +26,13 @@ export const buildings = pgTable("buildings", {
   state: text("state").notNull(),
   zipCode: text("zip_code").notNull(),
   landlord: text("landlord").notNull(),
+  vector: json("vector").$type<number[]>(), // For vector search of buildings
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 export const insertBuildingSchema = createInsertSchema(buildings).omit({
   id: true,
+  vector: true,
   createdAt: true,
 });
 
@@ -48,9 +50,14 @@ export const issueCategories = [
 ] as const;
 
 // Sub-issues by category
-export const subIssuesByCategory = {
+export const subIssuesByCategory: Record<typeof issueCategories[number], readonly string[]> = {
   repairs: [
     "heat_hot_water",
+    "no_hot_water",
+    "leaks_water_damage_apartment",
+    "leaks_water_damage_public_areas",
+    "doorbell_not_working_apartment", 
+    "doorbell_not_working_outside",
     "plumbing_leaks",
     "electrical",
     "pests",
@@ -67,6 +74,11 @@ export const subIssuesByCategory = {
     "service_disruptions",
     "threats",
     "privacy_violations",
+    "lack_of_hot_water",
+    "unreturned_leases",
+    "physical_harassment",
+    "apartment_breakins",
+    "lease_theft",
     "other_harassment"
   ],
   rental_agreements: [
@@ -86,9 +98,10 @@ export const subIssuesByCategory = {
     "other_financial"
   ],
   digital: [
+    "cell_disruption",
+    "social_media_hacks",
     "app_portal_problems",
     "internet_wifi",
-    "digital_communication",
     "online_harassment",
     "other_digital"
   ],
@@ -97,6 +110,10 @@ export const subIssuesByCategory = {
     "buyout_pressure",
     "construction_harassment",
     "essential_service_denial",
+    "identity_theft",
+    "lack_of_funds",
+    "harassment",
+    "lack_of_work",
     "other_displacement"
   ]
 } as const;
